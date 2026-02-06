@@ -5,7 +5,7 @@ class patient(BaseModel):
     name: str
     age: int
     weight: float
-    married: bool
+    married: bool=False
     allergies: Optional[List[str]]=None
     contact: Dict[str, str]
 
@@ -20,7 +20,7 @@ def insert(patient: patient):
     print("Data Inserted Successfully")
 
 
-patient_info={"name":"Monirul Islam", "age": 24, "weight": 62.5, "married": False,  "contact": {"Phone":"07142958888"}}
+patient_info={"name":"Monirul Islam", "age": 24, "weight": 62.5,  "contact": {"Phone":"07142958888"}}
 
 patient_1=patient(**patient_info)
 
