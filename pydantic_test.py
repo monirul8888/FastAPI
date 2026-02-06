@@ -1,12 +1,12 @@
 from pydantic import BaseModel
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 class patient(BaseModel):
     name: str
     age: int
     weight: float
     married: bool
-    allergies: List[str]
+    allergies: Optional[List[str]]=None
     contact: Dict[str, str]
 
 def insert(patient: patient):
@@ -20,7 +20,7 @@ def insert(patient: patient):
     print("Data Inserted Successfully")
 
 
-patient_info={"name":"Monirul Islam", "age": 24, "weight": 62.5, "married": False, "allergies": ["Begun", "Sim"], "contact": {"Phone":"07142958888"}}
+patient_info={"name":"Monirul Islam", "age": 24, "weight": 62.5, "married": False,  "contact": {"Phone":"07142958888"}}
 
 patient_1=patient(**patient_info)
 
