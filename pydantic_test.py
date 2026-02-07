@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, AnyUrl, Field
+from pydantic import BaseModel, EmailStr, AnyUrl, Field, field_validator
 from typing import List, Dict, Optional, Annotated
 
 class patient(BaseModel):
@@ -11,6 +11,25 @@ class patient(BaseModel):
     married: Annotated[bool, Field(default=None, description="Is that Patient Married or Not")]
     allergies: Annotated[Optional[List[str]], Field(default=None, max_length=5)]
     contact: Dict[str, str]
+
+    @field_validator("email")
+    @classmethod
+    def email_validator(cls, value):
+        
+        valid_domains=["hdfc.com", "icici.com"]
+        domain_name=value.split("@")[-1]
+
+        if domain_name not in valid_domains:
+            raise ValueError("Not a Valid Email")
+        
+        return value
+    
+    @field_validator("name")
+    @classmethod
+    def name_validator(cls, value):
+        return value.upper()
+
+
 
 def insert(patient: patient):
 
@@ -25,7 +44,7 @@ def insert(patient: patient):
     print("Data Inserted Successfully")
 
 
-patient_info={"name":"Monirul Islam", "age": 24, "email":"monirul@gmail.com", "fb_url":"https://www.facebook.com/moniirrul","weight": 62.5, "contact": {"Phone":"07142958888"}}
+patient_info={"name":"Monirul Islam", "age": 24, "email":"monirul@hdfc.com", "fb_url":"https://www.facebook.com/moniirrul","weight": 62.5, "contact": {"Phone":"07142958888"}}
 
 patient_1=patient(**patient_info)
 
