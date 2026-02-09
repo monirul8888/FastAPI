@@ -17,7 +17,7 @@ def course(post: course):
 
 @app.get("/")
 def home():
-    return {"message": "Welcome To Fast-API"}
+    return {"message": "Welcome To Fast-API Thanks...!"}
 
 
 
